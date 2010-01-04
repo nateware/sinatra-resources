@@ -1,6 +1,6 @@
 = Sinatra::Resources - Simple nested resources for Sinatra
 
-Every wished you could do this?
+Every wished you could do this in Sinatra?
 
   resource 'posts' do
     get do
@@ -10,20 +10,24 @@ Every wished you could do this?
     post do
       # create new post
     end
+  end
     
-    member do
-      get do
-        # show post params[:id]
-      end
+  resource 'posts/:id' do
+    get do
+      # show post params[:id]
+    end
 
-      delete do
-        # destroy post params[:id]
-      end
+    delete do
+      # destroy post params[:id]
+    end
 
-      get 'comments' do
-        # show this post's comments
-      end
+    get 'comments' do
+      # show this post's comments
     end
   end
 
-end
+Now you can.
+
+This was inspired by {Sinatra ticket #31}[https://sinatra.lighthouseapp.com/projects/9779/tickets/31-nested-resources],
+which many people want but hasn't gotten traction to make it into Sinatra core.
+
