@@ -95,14 +95,14 @@ Or you can extract the "id" parameter as well:
 
     member do
       get do |id|
-        # show post id
+        # show post ID=id
       end
 
       delete do |id|
-        # destroy post id
+        # destroy post ID=id
       end
 
-      get 'comments' do |id|
+      get :comments do |id|
         # show this post's comments
       end
     end
