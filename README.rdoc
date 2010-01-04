@@ -56,7 +56,7 @@ To the top of your application class.
 == Examples
 
 Resources can be arbitrarily nested, and can be either string paths or symbols.  There is also the
-shortcut +member+ which just maps to "resource ':id'".  So you could also write the above example:
+shortcut +member+ which just maps to "resource ':id'".  So you could also write the above example as:
 
   resource :posts do
     get do
@@ -76,14 +76,41 @@ shortcut +member+ which just maps to "resource ':id'".  So you could also write 
         # destroy post params[:id]
       end
 
-      get 'comments' do
+      get :comments do
         # show this post's comments
       end
     end
   end
 
-Whichever blows your hair back.
+Or you can extract the "id" parameter as well:
+
+  resource :posts do
+    get do
+      # show all posts
+    end
+
+    post do
+      # create new post
+    end
+
+    member do
+      get do |id|
+        # show post id
+      end
+
+      delete do |id|
+        # destroy post id
+      end
+
+      get 'comments' do |id|
+        # show this post's comments
+      end
+    end
+  end
+
+Whatever blows your hair back.
 
 == Author
 
-Copyright (c) 2010 {Nate Wiger}[http://github.com/nateware].  Release under the Artistic License.
+Copyright (c) 2010 {Nate Wiger}[http://nate.wiger.org].  All Rights Reserved.
+Released under the {Artistic License}[http://www.opensource.org/licenses/artistic-license-2.0.php].
