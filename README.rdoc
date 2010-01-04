@@ -1,0 +1,3 @@
+= Sinatra::Resources - simple nested resources for Sinatra
+
+Woot
