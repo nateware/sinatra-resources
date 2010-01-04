@@ -20,8 +20,8 @@ class Application < Sinatra::Base
         'hi'
       end
       
-      get :recent do
-        'recent'
+      get :recent do |id|
+        "recent: #{id}"
       end
     end
     

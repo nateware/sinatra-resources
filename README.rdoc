@@ -29,5 +29,61 @@ Every wished you could do this in Sinatra?
 Now you can.
 
 This was inspired by {Sinatra ticket #31}[https://sinatra.lighthouseapp.com/projects/9779/tickets/31-nested-resources],
-which many people want but hasn't gotten traction to make it into Sinatra core.
+which many people want but hasn't gotten traction to make it into Sinatra core.  If you want it in Sinatra,
+pipe up on the ticket!
 
+== Installation
+
+Install +gemcutter+ if you don't have it:
+
+  sudo gem install gemcutter
+  sudo gem tumble
+
+Then just install this gem:
+
+  sudo gem install sinatra-resources
+  
+If you are using a classic (one-file) Sinatra app, just add:
+
+  require 'sinatra/resources'
+  
+If you are using a modular Sinatra::Base app, you must also add:
+
+  register Sinatra::Resources
+  
+To the top of your application class.
+  
+== Examples
+
+Resources can be arbitrarily nested, and can be either string paths or symbols.  There is also the
+shortcut +member+ which just maps to "resource ':id'".  So you could also write the above example:
+
+  resource :posts do
+    get do
+      # show all posts
+    end
+
+    post do
+      # create new post
+    end
+    
+    member do
+      get do
+        # show post params[:id]
+      end
+
+      delete do
+        # destroy post params[:id]
+      end
+
+      get 'comments' do
+        # show this post's comments
+      end
+    end
+  end
+
+Whichever blows your hair back.
+
+== Author
+
+Copyright (c) 2010 {Nate Wiger}[http://github.com/nateware].  Release under the Artistic License.
