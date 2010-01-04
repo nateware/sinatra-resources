@@ -1,3 +1,29 @@
-= Sinatra::Resources - simple nested resources for Sinatra
+= Sinatra::Resources - Simple nested resources for Sinatra
 
-Woot
+Every wished you could do this?
+
+  resource 'posts' do
+    get do
+      # show all posts
+    end
+
+    post do
+      # create new post
+    end
+    
+    member do
+      get do
+        # show post params[:id]
+      end
+
+      delete do
+        # destroy post params[:id]
+      end
+
+      get 'comments' do
+        # show this post's comments
+      end
+    end
+  end
+
+end
