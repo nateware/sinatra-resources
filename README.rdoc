@@ -1,6 +1,6 @@
 = Sinatra::Resources - Simple nested resources for Sinatra
 
-Every wished you could do this in Sinatra?
+Ever wished you could do this in Sinatra?
 
   resource 'posts' do
     get do
