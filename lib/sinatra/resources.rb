@@ -36,6 +36,7 @@ module Sinatra
 
     def make_path(path)
       return path if path.is_a?(Regexp) || @path_parts.nil? || @path_parts.empty?
+      path = path.to_s if path.is_a?(Symbol)
       route = @path_parts.join('/')
       route += '/' + path if path
       '/' + route.squeeze('/')
