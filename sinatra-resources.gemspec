@@ -1,6 +1,6 @@
 spec = Gem::Specification.new do |s|
   s.name = 'sinatra-resources'
-  s.version = '0.1.0'
+  s.version = '0.1.1'
   s.summary = "Simple nested resources for Sinatra"
   s.description = %{Adds resource and member blocks to DSL. Based on widely-followed Sinatra ticket.}
   s.files = Dir['lib/**/*.rb'] + Dir['test/**/*.rb']
