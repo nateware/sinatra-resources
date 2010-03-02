@@ -1,21 +1,9 @@
 module Sinatra
   module Resources
-    def self.registered(app)
-      [:get, :post, :put, :delete].each do |meth|
-        # http://whynotwiki.com/Ruby_/_Method_aliasing_and_chaining#Can_you_alias_class_methods.3F
-        app.class_eval <<-EndAlias
-          class << self
-            alias_method :#{meth}_without_resource, :#{meth}
-            alias_method :#{meth}, :#{meth}_with_resource
-          end
-        EndAlias
-      end
-    end
-
     [:get, :post, :put, :delete].each do |meth|
       class_eval <<-EndMeth
-        def #{meth}_with_resource(path=nil, options={}, &block)
-          #{meth}_without_resource(make_path(path), options, &block)
+        def #{meth}(path=nil, options={}, &block)
+          super(make_path(path), options, &block)
         end
       EndMeth
     end
