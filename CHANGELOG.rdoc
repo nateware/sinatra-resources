@@ -1,4 +1,8 @@
 
+== 0.1.2 (May 23, 2010)
+
+* Integrated patch to use super instead of method chains - niko (Niko Dittmann)
+
 == 0.1.1 (January 14, 2010)
 
 * Fixed nested symbol routes - eddanger (Michael Wood)
