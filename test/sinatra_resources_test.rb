@@ -81,7 +81,11 @@ class RoutingTest < Test::Unit::TestCase
 
     get '/foo'
     assert_equal 404, status
-    assert_equal 'text/html', response["Content-Type"]
+    if Sinatra::VERSION >= "1.1"
+      assert_equal 'text/html;charset=utf-8', response["Content-Type"]
+    else
+      assert_equal 'text/html', response["Content-Type"]
+    end
     assert_equal "<h1>Not Found</h1>", response.body
   end
 
