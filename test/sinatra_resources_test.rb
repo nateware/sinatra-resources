@@ -956,22 +956,61 @@ class RoutingTest < Test::Unit::TestCase
     assert_equal 'bar in subclass', body
   end
 
-  # broken in old Sinatras (not our problem)
-  # it "matches routes in subclasses before superclasses" do
-  #   base = Class.new(Sinatra::Base)
-  #   base.get('/foo') { 'foo in baseclass' }
-  #   base.get('/bar') { 'bar in baseclass' }
-  # 
-  #   mock_app(base) {
-  #     get('/foo') { 'foo in subclass' }
-  #   }
-  # 
-  #   get '/foo'
-  #   assert ok?
-  #   assert_equal 'foo in subclass', body
-  # 
-  #   get '/bar'
-  #   assert ok?
-  #   assert_equal 'bar in baseclass', body
-  # end
+
+  it "supports conditions on resources" do
+    mock_app {
+      resource :admin, :provides => 'json' do
+        resource :users do
+          get do
+            '{"json": true}'
+          end
+        end
+      end
+    }
+
+    header "Accept", "text/html"
+    get '/admin/users'
+    assert last_response.not_found?
+
+    header "Accept", "application/json"
+    get '/admin/users'
+    assert_equal '{"json": true}', last_response.body
+  end
+
+  it "should overwrite parent conditions" do
+    mock_app {
+      resource :admin, :provides => 'json' do
+        resource :users, :provides => 'html' do
+          get do
+            'html'
+          end
+
+          get '/list', :provides => 'json' do
+            '{"json": true}'
+          end
+
+          member :provides => 'json' do
+            get do
+              '{"member": true}'
+            end
+          end
+        end
+      end
+    }
+
+    header "Accept", "text/html"
+    get '/admin/users'
+    assert last_response.ok?
+    assert_equal 'html', last_response.body
+
+    header "Accept", "application/json"
+    get '/admin/users/list'
+    assert last_response.ok?
+    assert_equal '{"json": true}', last_response.body
+
+    header "Accept", "application/json"
+    get '/admin/users/1'
+    assert last_response.ok?
+    assert_equal '{"member": true}', last_response.body
+  end
 end
