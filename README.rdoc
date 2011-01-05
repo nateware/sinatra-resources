@@ -110,6 +110,24 @@ Or you can extract the "id" parameter as well:
 
 Whatever blows your hair back.
 
+Both the resource and member methods support the usual Sinatra conditions you can set on get, post, put and
+delete. If you specify conditions on a lower resource, like e.g. a different accept type using the :provides
+options, it will overwrite any settings of the parent resource.
+
+  resource :posts, :provides => 'json' do
+    get '/', :provides => 'html' do
+      # only accepts html, not json
+    end
+
+    get '/all' do
+      # only accepts json
+    end
+
+    member :comments, :provides => 'xml' do
+      # subsequent routes will only accept xml
+    end
+  end
+
 == Author
 
 Copyright (c) 2010 {Nate Wiger}[http://nate.wiger.org].  All Rights Reserved.
