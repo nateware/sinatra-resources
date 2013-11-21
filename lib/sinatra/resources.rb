@@ -1,6 +1,6 @@
 module Sinatra
   module Resources
-    [:get, :post, :put, :delete].each do |meth|
+    [:get, :post, :put, :delete, :patch, :link, :unlink, :head, :options].each do |meth|
       class_eval <<-EndMeth
         def #{meth}(path=nil, options={}, &block)
           super(make_path(path), options, &block)
